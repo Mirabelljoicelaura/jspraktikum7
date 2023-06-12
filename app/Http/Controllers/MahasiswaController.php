@@ -14,8 +14,8 @@ class MahasiswaController extends Controller
      */
     public function index()
     {
-        $mahasiswas = Mahasiswa::all(); // Mengambil semua isi tabel
-        $posts = Mahasiswa::orderBy('Nim', 'desc')->paginate(6);
+        $mahasiswas = Mahasiswa::paginate(5); // Mengambil semua isi tabel
+        $posts = Mahasiswa::orderBy('Nim', 'desc');
         return view('mahasiswas.index', compact('mahasiswas'))->with('i', (request()->input('page', 1) - 1) * 5);
     }
 
@@ -47,7 +47,6 @@ class MahasiswaController extends Controller
 
          return redirect()->route('mahasiswas.index')->with('success', 'Mahasiswa Berhasil Ditambahkan');
      }
-
 
     /**
      * Display the specified resource.
