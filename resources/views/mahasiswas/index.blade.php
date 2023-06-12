@@ -19,6 +19,19 @@
         </div>
     @endif
 
+    <div class="row">
+        <div class="col-md-6">
+            <form action="{{ route('mahasiswas.index') }}" method="GET">
+                <div class="input-group mb-3">
+                    <input type="text" name="search" class="form-control" placeholder="Search by Nama">
+                    <div class="input-group-append">
+                        <button class="btn btn-primary" type="submit">Search</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
     <table class="table table-bordered">
         <tr>
             <th>Nim</th>
@@ -42,8 +55,8 @@
                 <td>
                 <form action="{{ route('mahasiswas.destroy',$Mahasiswa->Nim) }}" method="POST">
 
-                <a class="btn btninfo" href="{{ route('mahasiswas.show',$Mahasiswa->Nim) }}">Show</a>
-                <a class="btn btnprimary" href="{{ route('mahasiswas.edit',$Mahasiswa->Nim) }}">Edit</a>
+                <a class="btn btn-info" href="{{ route('mahasiswas.show',$Mahasiswa->Nim) }}">Show</a>
+                <a class="btn btn-primary" href="{{ route('mahasiswas.edit',$Mahasiswa->Nim) }}">Edit</a>
                 @csrf
                 @method('DELETE')
                 <button type="submit" class="btn btn-danger">Delete</button>
