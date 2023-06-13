@@ -15,7 +15,7 @@
                     </ul>
                 </div>
                 @endif
-                <form method="post" action="{{ route('mahasiswas.store') }}" id="myForm">
+                <form method="POST" action="{{ route('mahasiswas.store') }}" id="myForm">
                     @csrf
                     <div class="form-group">
                         <label for="Nim">Nim</label>
@@ -27,11 +27,16 @@
                     </div>
                     <div class="form-group">
                         <label for="Tanggal_Lahir">Tanggal Lahir</label>
-                        <input type="date" name="Tanggal Lahir" class="form-control" id="Tanggal Lahir" aria-describedby="Tanggal Lahir">
+                        <input type="date" name="Tanggal_Lahir" class="form-control" id="Tanggal_Lahir" aria-describedby="Tanggal_Lahir">
                     </div>
                     <div class="form-group">
                         <label for="Kelas">Kelas</label>
-                        <input type="text" name="Kelas" class="form-control" id="Kelas" aria-describedby="Kelas">
+                        <select class="form-control" id="kelas_id" name="kelas_id">
+                            @foreach ($kelas as $kls)
+                                <option value="{{$kls->id}}">{{$kls->nama_kelas}}</option>
+                            @endforeach
+                        </select>
+                        {{-- <input type="text" name="Kelas" class="form-control" id="Kelas" aria-describedby="Kelas"> --}}
                     </div>
                     <div class="form-group">
                         <label for="Jurusan">Jurusan</label>

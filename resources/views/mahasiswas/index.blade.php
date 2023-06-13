@@ -8,7 +8,7 @@
                 <h2>JURUSAN TEKNOLOGI INFORMASI POLITEKNIK NEGERI MALANG</h2>
             </div>
             <div class="float-right my-2">
-                <a class="btn btnsuccess" href="{{ route('mahasiswas.create') }}"> Input Mahasiswa</a>
+                <a class="btn btn-success" href="{{ route('mahasiswas.create') }}"> Input Mahasiswa</a>
             </div>
         </div>
     </div>
@@ -23,7 +23,7 @@
         <div class="col-md-6">
             <form action="{{ route('mahasiswas.index') }}" method="GET">
                 <div class="input-group mb-3">
-                    <input type="text" name="search" class="form-control" placeholder="Search by Nama">
+                    <input type="text" name="key" class="form-control" placeholder="Search by Nama">
                     <div class="input-group-append">
                         <button class="btn btn-primary" type="submit">Search</button>
                     </div>
@@ -48,7 +48,7 @@
                 <td>{{ $Mahasiswa->Nim }}</td>
                 <td>{{ $Mahasiswa->Nama }}</td>
                 <td>{{ $Mahasiswa->Tanggal_Lahir }}</td>
-                <td>{{ $Mahasiswa->Kelas }}</td>
+                <td>{{ $Mahasiswa->Kelas->nama_kelas}}</td>
                 <td>{{ $Mahasiswa->Jurusan }}</td>
                 <td>{{ $Mahasiswa->No_Handphone }}</td>
                 <td>{{ $Mahasiswa->Email }}</td>
@@ -65,6 +65,7 @@
             </tr>
         @endforeach
     </table>
+
     <div class="pagination-container">
         {{$mahasiswas->links('pagination::bootstrap-5')}}
     </div>
