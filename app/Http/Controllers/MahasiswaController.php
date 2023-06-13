@@ -99,27 +99,6 @@ class MahasiswaController extends Controller
     }
 
 
-
-    // public function update(Request $request, string $Nim)
-    // {
-    //     $request->validate([
-    //         'Nim' => 'required',
-    //         'Nama' => 'required',
-    //         'Tanggal_Lahir' => 'required',
-    //         'kelas_id' => 'required',
-    //         'Jurusan' => 'required',
-    //         'No_Handphone' => 'required',
-    //         'Email' => 'required',
-    //     ]);
-    //     $Mahasiswa = Mahasiswa::find($Nim);
-    //     $Mahasiswa->update($request->all());
-
-    //     return redirect()->route('mahasiswas.index')->with('success', 'Mahasiswa Berhasil Diupdate');
-    //     // Mahasiswa::find($Nim)->update($request->all());
-    //     // return redirect()->route('mahasiswas.index')->with('success', 'Mahasiswa Berhasil Diupdate');
-
-    // }
-
     /**
      * Remove the specified resource from storage.
      */
@@ -128,4 +107,22 @@ class MahasiswaController extends Controller
         Mahasiswa::find($Nim)->delete();
         return redirect()->route('mahasiswas.index')->with('success', 'Mahasiswa Berhasil Dihapus');
     }
+    // function nilai($Nim)
+    // {
+    //     $mahasiswa_id = Mahasiswa::where('Nim', $Nim)->pluck('id')->first();
+    //     $Mahasiswa = Mahasiswa::with('mahasiswa_matakuliah.matakuliah')->where('id', $mahasiswa_id)->first();
+    //     return view('mahasiswas.mahasiswa_nilai', compact('mahasiswa'));
+    // }
+    public function nilai($Nim)
+    {
+        $Mahasiswa = Mahasiswa::where('Nim', $Nim)->first();
+
+        if (!$Mahasiswa) {
+
+        }
+
+        $mahasiswa_matakuliah = $Mahasiswa->mahasiswa_matakuliah;
+        return view('mahasiswas.nilai', compact('Mahasiswa', 'mahasiswa_matakuliah'));
+    }
+
 }

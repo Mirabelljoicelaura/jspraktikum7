@@ -26,9 +26,24 @@ class Mahasiswa extends Model
         'Email',
         ];
 
-    public function kelas(){
-        return $this->belongsTo(Kelas::class);
+    public function kelas()
+    {
+        return $this->belongsTo(Kelas::class, 'kelas_id');
     }
+
+    public function matakuliah()
+    {
+        return $this->belongsToMany(Matakuliah::class, 'mahasiswa_matakuliah', 'mahasiswa_id', 'matakuliah_id')->withPivot('nilai');
+    }
+    public function mahasiswa_matakuliah()
+    {
+        return $this->belongsToMany(Matakuliah::class, 'mahasiswa_matakuliah', 'mahasiswa_id', 'matakuliah_id')->withPivot('nilai');
+    }
+
+
+
+
+
     };
 
 
