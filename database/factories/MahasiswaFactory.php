@@ -21,7 +21,7 @@ class MahasiswaFactory extends Factory
             'Nama'=>$this->faker->name(),
             'Email'=>$this->faker->email(),
             'Tanggal_Lahir'=>$this->faker->date(),
-            'Kelas'=>$this->faker->randomElement(['TI 2A', 'TI 2B', 'TI 1A', 'TI 1B']),
+            'kelas_id' => $this->faker->numberBetween(1, 9),
             'Jurusan'=>$this->faker->randomElement(['Teknik Informatika', 'Sistem Informasi Bisnis']),
             'No_Handphone'=>$this->faker->randomNumber(9, true),
         ];

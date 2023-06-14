@@ -19,22 +19,15 @@
             </tr>
         </thead>
         <tbody>
-            @if ($mahasiswa_matakuliah)
-            @foreach ($mahasiswa_matakuliah as $nilai)
+
+            @foreach ($Mahasiswa->Matakuliah as $nilai)
                 <tr>
-                    <td>{{ $nilai->matakuliah->nama_matkul }}</td>
-                    <td>{{ $nilai->matakuliah->sks }}</td>
-                    <td>{{ $nilai->matakuliah->semester }}</td>
+                    <td>{{ $nilai->nama_matkul }}</td>
+                    <td>{{ $nilai->sks }}</td>
+                    <td>{{ $nilai->semester }}</td>
                     <td>{{ $nilai->pivot->nilai }}</td>
                 </tr>
             @endforeach
-            @else
-                <tr>
-                    <td colspan="4">Data nilai tidak ditemukan.</td>
-                </tr>
-            @endif
-
-
         </tbody>
     </table>
 @endsection

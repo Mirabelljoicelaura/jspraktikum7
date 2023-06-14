@@ -11,10 +11,16 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('mahasiswa', function (Blueprint $table) {
-            $table->dropColumn('kelas');
+        Schema::create('mahasiswa', function (Blueprint $table) {
+            $table->id();
+            $table->string('Nim')->unique;
+            $table->string('Nama');
+            $table->date('Tanggal_Lahir');
             $table->unsignedBigInteger('kelas_id')->nullable();
             $table->foreign('kelas_id')->references('id')->on('kelas');
+            $table->string('Jurusan');
+            $table->string('No_Handphone');
+            $table->string('Email');
         });
     }
 
@@ -23,9 +29,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('mahasiswa',function (Blueprint $table){
-            $table->string('kelas');
-            $table->dropForeign(['kelas_id']);
-        });
+        Schema::dropIfExists('mahasiswa');
     }
 };

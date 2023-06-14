@@ -10,7 +10,6 @@ class Mahasiswa extends Model
     use HasFactory;
     protected $table="mahasiswa";
     public $timestamps = false;
-    protected $primaryKey = 'Nim';
     /**
      * The attributes that are mass assignable.
      *
@@ -28,7 +27,7 @@ class Mahasiswa extends Model
 
     public function kelas()
     {
-        return $this->belongsTo(Kelas::class, 'kelas_id');
+        return $this->belongsTo(Kelas::class);
     }
 
     public function matakuliah()
