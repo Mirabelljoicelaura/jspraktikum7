@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Article;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 
 class ArticleController extends Controller
 {
@@ -28,16 +30,17 @@ class ArticleController extends Controller
      */
     public function store(Request $request)
     {
-        if($request->file('featured_image')){
-            $image_name = $request->file('featured_image')->store('images', 'public');
+        if ($request->file('image')) {
+            $image_name = $request->file('image')->store('images', 'public');
         }
 
         Article::create([
             'title' => $request->title,
             'content' => $request->content,
-            'featured_image' => $image_name,
+            'featured_image' => $image_name
         ]);
-        return 'Artikel berhasil disimpan';
+
+        return 'Article berhasil disimpan';
     }
 
     /**
@@ -53,7 +56,8 @@ class ArticleController extends Controller
      */
     public function edit(Article $article)
     {
-        //
+        $article = Article::find($article);
+        return view('articles.edit', ['article' => $article]);
     }
 
     /**
@@ -61,7 +65,14 @@ class ArticleController extends Controller
      */
     public function update(Request $request, Article $article)
     {
-        //
+        $article = Article::find($article);
+
+        $article->title = $request->title;
+        $article->content = $request->content;
+
+        if($article->featured_image && file_exists(storage_path('app/public/' . $article->featured_image))){
+        Storage::delete('public/' . $article->featured_image);
+        }
     }
 
     /**
