@@ -54,7 +54,7 @@
                 <td>{{ $mahasiswa->Email }}</td>
                 <td>
                 <form action="{{ route('mahasiswas.destroy',$mahasiswa) }}" method="POST">
-
+                @dd()
                 <a class="btn btn-info" href="{{ route('mahasiswas.show', $mahasiswa) }}">Show</a>
                 <a class="btn btn-primary" href="{{ route('mahasiswas.edit',$mahasiswa) }}">Edit</a>
                 @csrf
