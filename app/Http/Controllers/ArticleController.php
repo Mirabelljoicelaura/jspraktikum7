@@ -56,24 +56,30 @@ class ArticleController extends Controller
      */
     public function edit(Article $article)
     {
-        $article = Article::find($article);
-        return view('articles.edit', ['article' => $article]);
+        return view('articles.edit', compact('article'));
     }
+
 
     /**
      * Update the specified resource in storage.
      */
     public function update(Request $request, Article $article)
     {
-        $article = Article::find($article);
-
         $article->title = $request->title;
         $article->content = $request->content;
 
-        if($article->featured_image && file_exists(storage_path('app/public/' . $article->featured_image))){
-        Storage::delete('public/' . $article->featured_image);
+        if ($article->featured_image && file_exists(storage_path('app/public/' . $article->featured_image))) {
+            Storage::delete('public/' . $article->featured_image);
         }
+
+        $image_name = $request->file('image')->store('images', 'public');
+        $article->featured_image = $image_name;
+
+        $article->save();
+
+        return 'Artikel berhasil diubah';
     }
+
 
     /**
      * Remove the specified resource from storage.
