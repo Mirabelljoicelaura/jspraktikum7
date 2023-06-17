@@ -6,6 +6,7 @@ use App\Models\Article;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
+use Barryvdh\DomPDF\Facade\Pdf as PDF;
 
 class ArticleController extends Controller
 {
@@ -88,4 +89,12 @@ class ArticleController extends Controller
     {
         //
     }
+    public function cetak_pdf()
+    {
+        $articles = Article::all();
+        $pdf = PDF::loadView('articles.articles_pdf', ['articles' => $articles]);
+        return $pdf->stream();
+    }
+
+
 }
