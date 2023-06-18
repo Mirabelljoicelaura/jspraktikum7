@@ -29,7 +29,4 @@
             @endforeach
         </tbody>
     </table>
-    <div class="text-center">
-    <a href="{{ route('mahasiswas.cetak_pdf', ['id' => $Mahasiswa->id]) }}" class="btn btn-primary" target="_blank" >Cetak PDF</a>
-    </div>
 @endsection

@@ -6,6 +6,7 @@ use App\Models\Mahasiswa;
 use Illuminate\Http\Request;
 use App\Models\Kelas;
 use Illuminate\Support\Facades\Storage;
+use Barryvdh\DomPDF\Facade\Pdf as PDF;
 
 class MahasiswaController extends Controller
 {
@@ -134,6 +135,15 @@ class MahasiswaController extends Controller
        $Mahasiswa = Mahasiswa::with('kelas', 'matakuliah')->where('Nim' , $Nim)->first();
        return view('mahasiswas.nilai', compact('Mahasiswa'));
     }
+    public function cetak_pdf($id)
+    {
+        $mahasiswa = Mahasiswa::findOrFail($id);
+        $pdf = PDF::loadView('mahasiswas.cetak_pdf', ['Mahasiswa' => $mahasiswa]);
+        return $pdf->stream();
+    }
+
+
+
 
 
 }
