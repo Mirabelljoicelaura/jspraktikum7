@@ -15,7 +15,7 @@
             </div>
             <div class="form-group">
                 <label for="image">Feature Image</label>
-                <input type="file" class="form-control" required name="image" value="{{ $article->content }}"><br>
+                <input type="file" class="form-control" required name="image" value="{{ $article->Foto }}"><br>
                 <img width='150px' src="{{ asset('storage/' . $article->featured_image) }}" alt="">
             </div>
             <button type="submit" class="btn btn-primary float-right">Ubah Data</button>

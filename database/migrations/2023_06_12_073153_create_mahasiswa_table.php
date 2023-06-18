@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('Nim')->unique;
             $table->string('Nama');
+            $table->string('Foto');
             $table->date('Tanggal_Lahir');
             $table->unsignedBigInteger('kelas_id')->nullable();
             $table->foreign('kelas_id')->references('id')->on('kelas');

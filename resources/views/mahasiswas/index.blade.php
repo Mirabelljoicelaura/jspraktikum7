@@ -36,25 +36,27 @@
         <tr>
             <th>Nim</th>
             <th>Nama</th>
-            <th>Tanggal Lahir</th>
+            <th>Foto</th>
+            {{-- <th>Tanggal Lahir</th> --}}
             <th>Kelas</th>
             <th>Jurusan</th>
             <th>No_Handphone</th>
-            <th>Email</th>
+            {{-- <th>Email</th> --}}
             <th width="290px">Action</th>
         </tr>
         @foreach ($mahasiswas as $mahasiswa)
             <tr>
                 <td>{{ $mahasiswa->Nim }}</td>
                 <td>{{ $mahasiswa->Nama }}</td>
-                <td>{{ $mahasiswa->Tanggal_Lahir }}</td>
+                <td><img width='100px' src="{{ asset('storage/' . $mahasiswa->Foto) }}" alt=""></td>
+                {{-- <td>{{ $mahasiswa->Tanggal_Lahir }}</td> --}}
                 <td>{{ $mahasiswa->kelas->nama_kelas}}</td>
                 <td>{{ $mahasiswa->Jurusan }}</td>
                 <td>{{ $mahasiswa->No_Handphone }}</td>
-                <td>{{ $mahasiswa->Email }}</td>
+                {{-- <td>{{ $mahasiswa->Email }}</td> --}}
                 <td>
                 <form action="{{ route('mahasiswas.destroy',$mahasiswa) }}" method="POST">
-                @dd()
+
                 <a class="btn btn-info" href="{{ route('mahasiswas.show', $mahasiswa) }}">Show</a>
                 <a class="btn btn-primary" href="{{ route('mahasiswas.edit',$mahasiswa) }}">Edit</a>
                 @csrf

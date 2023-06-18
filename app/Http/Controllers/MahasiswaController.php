@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Mahasiswa;
 use Illuminate\Http\Request;
 use App\Models\Kelas;
+use Illuminate\Support\Facades\Storage;
 
 class MahasiswaController extends Controller
 {
@@ -41,20 +42,29 @@ class MahasiswaController extends Controller
      * Store a newly created resource in storage.
      */
     public function store(Request $request)
-    {
-        $request->validate([
-            'Nim' => 'required',
-            'Nama' => 'required',
-            'Tanggal_Lahir' => 'required',
-            'kelas_id' => 'required',
-            'Jurusan' => 'required',
-            'No_Handphone' => 'required',
-            'Email' => 'required',
-        ]);
-        Mahasiswa::create($request->all());
+{
+    $request->validate([
+        'Nim' => 'required',
+        'Nama' => 'required',
+        'Foto' => 'required', // Mengubah 'required' menjadi 'nullable' untuk memungkinkan input kosong
+        'Tanggal_Lahir' => 'required',
+        'kelas_id' => 'required',
+        'Jurusan' => 'required',
+        'No_Handphone' => 'required',
+        'Email' => 'required',
+    ]);
 
-        return redirect()->route('mahasiswas.index')->with('success', 'Mahasiswa Berhasil Ditambahkan');
+    // Simpan file foto ke direktori dan dapatkan nama file yang disimpan jika ada
+    if ($request->hasFile('Foto')) {
+        $foto = $request->file('Foto')->store('images', 'public');
     }
+
+    // Buat entri Mahasiswa dengan menyertakan nama file foto jika ada
+    Mahasiswa::create($request->except('Foto') + ['Foto' => $foto]);
+
+    return redirect()->route('mahasiswas.index')->with('success', 'Mahasiswa Berhasil Ditambahkan');
+}
+
 
 
     /**
@@ -78,6 +88,7 @@ class MahasiswaController extends Controller
     }
 
     // create function update
+
     public function update(Request $request, Mahasiswa $mahasiswa)
     {
         $request->validate([
@@ -90,11 +101,22 @@ class MahasiswaController extends Controller
             'Email' => 'required',
         ]);
 
-        $mahasiswa->update($request->all());
+        $mahasiswa->update($request->except('Foto'));
+
+        if ($request->hasFile('Foto')) {
+            if ($mahasiswa->Foto && file_exists(storage_path('app/public/' . $mahasiswa->Foto))) {
+                Storage::delete('public/' . $mahasiswa->Foto);
+            }
+            $foto = $request->file('Foto')->store('images', 'public');
+            $mahasiswa->Foto = $foto;
+            $mahasiswa->save();
+        }
 
         return redirect()->route('mahasiswas.index')
             ->with('success', 'Mahasiswa Berhasil Diupdate');
     }
+
+
 
 
 
